@@ -64,7 +64,7 @@
     panel = document.createElement('div');
     panel.id = PANEL_ID;
     panel.innerHTML = `
-      <div class="bp-title">分P观看进度</div>
+      <div class="bp-title">观看进度</div>
       <div class="bp-bar"><div class="bp-fill"></div></div>
       <div class="bp-text">加载中…</div>
     `;
