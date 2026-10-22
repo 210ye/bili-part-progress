@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "B站分P观看进度",
+  "name": "Bili Part Progress - B站分P观看进度",
   "version": "1.0.0",
   "description": "在B站分P视频页面显示观看进度占总时长的比例悬浮窗",
   "permissions": ["storage"],
