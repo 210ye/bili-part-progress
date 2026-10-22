@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      width: 220px;
+      padding: 14px 16px;
+      margin: 0;
+      font-family: -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+      font-size: 13px;
+      color: #222;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: #fb7299;
+    }
+    p {
+      margin: 10px 0 0;
+      color: #666;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <label>
+    <input type="checkbox" id="toggle">
+    显示分P进度悬浮窗
+  </label>
+  <p>在B站分P视频页面右侧显示观看进度条，随分P切换和播放实时更新。</p>
+  <script src="popup.js"></script>
+</body>
+</html>

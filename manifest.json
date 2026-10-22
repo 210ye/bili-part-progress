@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "B站分P观看进度",
+  "version": "1.0.0",
+  "description": "在B站分P视频页面显示观看进度占总时长的比例悬浮窗",
+  "permissions": ["storage"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "B站分P进度"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.bilibili.com/video/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
