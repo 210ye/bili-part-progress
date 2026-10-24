@@ -4,6 +4,8 @@
   const PANEL_ID = 'bili-pp-progress-panel';
   const STYLE_ID = 'bili-pp-progress-style';
   const TICK_MS = 800;
+  const FADE_MARGIN = 24;
+  const FADE_OPACITY = '0.15';
 
   let enabled = true;
   let cache = { bv: null, data: null };
@@ -28,6 +30,8 @@
         line-height: 1.5;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
         font-family: -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
       }
       #${PANEL_ID} .bp-title {
         font-weight: 600;
@@ -155,6 +159,35 @@
     panel.querySelector('.bp-text').textContent = '加载中…';
   }
 
+  // ---------- 悬停淡出 ----------
+  // 面板是 pointer-events: none，收不到自身事件，只能用文档坐标判断
+  function bindFadeOnHover() {
+    let pending = false;
+    let lastX = 0;
+    let lastY = 0;
+
+    function apply() {
+      pending = false;
+      const panel = document.getElementById(PANEL_ID);
+      if (!panel) return;
+      const r = panel.getBoundingClientRect();
+      if (!r.width) return; // display: none，不留下错误的淡出状态
+      const inside =
+        lastX >= r.left - FADE_MARGIN && lastX <= r.right + FADE_MARGIN &&
+        lastY >= r.top - FADE_MARGIN && lastY <= r.bottom + FADE_MARGIN;
+      const next = inside ? FADE_OPACITY : '1';
+      if (panel.style.opacity !== next) panel.style.opacity = next;
+    }
+
+    document.addEventListener('pointermove', (e) => {
+      lastX = e.clientX;
+      lastY = e.clientY;
+      if (pending) return;
+      pending = true;
+      requestAnimationFrame(apply);
+    }, { passive: true });
+  }
+
   // ---------- 开关 ----------
   function syncEnabled() {
     chrome.storage.sync.get({ enabled: true }, (r) => { enabled = r.enabled; });
@@ -168,5 +201,6 @@
   });
 
   syncEnabled();
+  bindFadeOnHover();
   setInterval(tick, TICK_MS);
 })();
